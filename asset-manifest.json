@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/token-har-app/static/css/main.964fdded.css",
+    "main.js": "/token-har-app/static/js/main.a48af23e.js",
+    "index.html": "/token-har-app/index.html",
+    "main.964fdded.css.map": "/token-har-app/static/css/main.964fdded.css.map",
+    "main.a48af23e.js.map": "/token-har-app/static/js/main.a48af23e.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.964fdded.css",
+    "static/js/main.a48af23e.js"
+  ]
+}
