@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/token-har-app/static/css/main.964fdded.css",
-    "main.js": "/token-har-app/static/js/main.a48af23e.js",
+    "main.js": "/token-har-app/static/js/main.224675e9.js",
     "index.html": "/token-har-app/index.html",
     "main.964fdded.css.map": "/token-har-app/static/css/main.964fdded.css.map",
-    "main.a48af23e.js.map": "/token-har-app/static/js/main.a48af23e.js.map"
+    "main.224675e9.js.map": "/token-har-app/static/js/main.224675e9.js.map"
   },
   "entrypoints": [
     "static/css/main.964fdded.css",
-    "static/js/main.a48af23e.js"
+    "static/js/main.224675e9.js"
   ]
 }
