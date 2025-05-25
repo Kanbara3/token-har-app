@@ -1,8 +1,9 @@
-import React, { useState, useMemo, useRef } from 'react';
+import React, { useState, useMemo } from 'react';
 import CharacterFilterPanel from './CharacterFilterPanel';
 import ColumnSelector from './ColumnSelector';
 import CharacterTable from './CharacterTable';
 import protectNames from './protectNames';
+import ExpRecordButton from './ExpRecordButton';
 
 const FIELD_LABELS = {
     serial_id: '個体ID',
@@ -215,6 +216,23 @@ const CharacterList = ({ characters, swordNames = {}, roleNames = {} }) => {
         URL.revokeObjectURL(url);
     };
 
+    // --- 記録ボタン用 ---
+    // 表示中のキャラ名リスト（visibleFields['name']がtrueのもののみ）
+    const charNameList = useMemo(() => {
+        // serial_id昇順で安定化
+        const sorted = [...characters].sort((a, b) => (a.sword_id || 0) - (b.sword_id || 0));
+        // sword_idごとに一意なものだけ
+        const seen = new Set();
+        return sorted.filter(c => {
+            if (seen.has(c.sword_id)) return false;
+            seen.add(c.sword_id);
+            return true;
+        }).map(c => ({
+            sword_id: c.sword_id,
+            name: swordNames[c.sword_id] || String(c.sword_id)
+        }));
+    }, [characters, swordNames]);
+
     if (!characters || characters.length === 0) {
         return <div>キャラクター情報がありません</div>;
     }
@@ -222,6 +240,7 @@ const CharacterList = ({ characters, swordNames = {}, roleNames = {} }) => {
     return (
         <div>
             <h2>キャラクター一覧</h2>
+            <ExpRecordButton sortedChars={sortedChars} swordNames={swordNames} />
             <button onClick={csvDownload} style={{ marginBottom: 8 }}>表示中の表をCSVダウンロード</button>
             <CharacterFilterPanel
                 symbolFilter={symbolFilter} setSymbolFilter={setSymbolFilter}
@@ -235,7 +254,7 @@ const CharacterList = ({ characters, swordNames = {}, roleNames = {} }) => {
                 defMin={defMin} setDefMin={setDefMin} defMax={defMax} setDefMax={setDefMax}
                 mobileMin={mobileMin} setMobileMin={setMobileMin} mobileMax={mobileMax} setMobileMax={setMobileMax}
                 backMin={backMin} setBackMin={setBackMin} backMax={backMax} setBackMax={setBackMax}
-                scoutMin={scoutMin} setScoutMin={setScoutMin} scoutMax={scoutMax} setScoutMax={setRanbuExpMax}
+                scoutMin={scoutMin} setScoutMin={setScoutMin} scoutMax={scoutMax} setScoutMax={setScoutMax}
                 hideMin={hideMin} setHideMin={setHideMin} hideMax={hideMax} setHideMax={setHideMax}
                 loyaltiesMin={loyaltiesMin} setLoyaltiesMin={setLoyaltiesMin} loyaltiesMax={loyaltiesMax} setLoyaltiesMax={setLoyaltiesMax}
                 fatigueMin={fatigueMin} setFatigueMin={setFatigueMin} fatigueMax={fatigueMax} setFatigueMax={setFatigueMax}
